@@ -24,6 +24,7 @@ runs:
   steps:
     - name: Get Tool File
       if: ${{ inputs.cache == true || inputs.cache == 'true' }}
+      shell: bash
       id: file
       run: |
         if [ -f "aftman.toml" ]; then
