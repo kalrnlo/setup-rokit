@@ -30,6 +30,7 @@ runs:
           Windows) pattern="*windows-x86_64.zip" ;;
         esac
 
+        gh auth login --with-token GITHUB_TOKEN
         gh release download ${{ inputs.version }} --repo rojo-rbx/rokit --pattern $pattern
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
