@@ -1,7 +1,6 @@
 <div align="center">
   <h1><code>setup-rokit</code></h1>
   <p>
-    <a href="https://github.com/kalrnlo/setup-rokit/actions?query=workflow%3ACI"><img src="https://github.com/kalrnlo/setup-rokit/workflows/CI/badge.svg" alt="CI" /></a>
 
 GitHub action to install and run [rokit](https://github.com/rojo-rbx/rokit); a toolchain manager.
 
