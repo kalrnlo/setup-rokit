@@ -75,7 +75,7 @@ runs:
         path: |
           ~/.rokit/bin
           ~/.rokit/tool-storage
-        key: ${{ runner.os }}-aftman-${{hashFiles(format('{0}/{1}', inputs.path, 'aftman.toml'))}}
+        key: ${{ runner.os }}-aftman-${{hashFiles(format('{0}/{1}', inputs.path, 'rokit.toml'))}}
 
     - name: Install tools
       run: |
