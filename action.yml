@@ -30,7 +30,7 @@ runs:
           Windows) pattern="*windows-x86_64.zip" ;;
         esac
 
-        gh release download ${{ inputs.version }} --repo rojo/rokit --pattern $pattern
+        gh release download ${{ inputs.version }} --repo rojo-rbx/rokit --pattern $pattern
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
