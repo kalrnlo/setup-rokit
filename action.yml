@@ -28,16 +28,17 @@ runs:
       id: file
       run: |
         if [ -f "aftman.toml" ]; then
-          echo "name=aftman.toml" >> $GITHUB_OUTPUT
+          echo "name=aftman.toml" >> $GITHUB_OUTPUT;
+          echo "Found tools file aftman.toml"
         elif [ -f "foreman.toml" ]; then
-          echo "name=foreman.toml" >> $GITHUB_OUTPUT
+          echo "name=foreman.toml" >> $GITHUB_OUTPUT;
+          echo "Found tools file foreman.toml"
         elif [ -f "rokit.toml" ]; then
-          echo "name=rokit.toml" >> $GITHUB_OUTPUT
+          echo "name=rokit.toml" >> $GITHUB_OUTPUT;
+          echo "Found tools file rokit.toml"
         else
           echo "No tools file found"; exit 1
         fi
-
-        echo "Found tools file "
   
     - name: Download rokit
       env:
