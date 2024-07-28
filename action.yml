@@ -63,7 +63,7 @@ runs:
 
     - name: Authenticate
       run: 
-        rokit authenticate github --token ${{ inputs.token }}
+        rokit authenticate github --token ${{ inputs.token }} --skip-verify
       shell: bash
 
     - name: Cache binaries
@@ -73,7 +73,7 @@ runs:
         path: |
           ~/.rokit/bin
           ~/.rokit/tool-storage
-        key: ${{ runner.os }}-aftman-${{hashFiles(format('{0}/{1}', inputs.path, 'rokit.toml'))}}
+        key: ${{ runner.os }}-rokit-${{hashFiles(format('{0}/{1}', inputs.path, 'rokit.toml'))}}
 
     - name: Install tools
       run: |
