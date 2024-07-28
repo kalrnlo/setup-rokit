@@ -27,10 +27,13 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
       run: |
+        os=${{ runner.os }}
+
+        echo os
         case ${{ runner.os }} in
-          Linux) pattern="*linux-x86_64.zip" ;;
-          macOS) pattern="*macos-x86_64.zip" ;;
-          Windows) pattern="*windows-x86_64.zip" ;;
+          Linux) pattern_start="*linux-x86_64.zip" ;;
+          macOS) pattern_start="*macos-x86_64.zip" ;;
+          Windows) pattern_start="*windows-x86_64.zip" ;;
         esac
         
         gh release download ${{ inputs.version }} --repo rojo-rbx/rokit --pattern $pattern
