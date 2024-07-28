@@ -30,7 +30,7 @@ runs:
           Windows) pattern="*windows-x86_64.zip" ;;
         esac
 
-        gh release download ${{ inputs.version }} --repo rojo/aftman --pattern $pattern
+        gh release download ${{ inputs.version }} --repo rojo/rokit --pattern $pattern
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
@@ -61,7 +61,7 @@ runs:
       run: echo "$HOME/.rokit/bin" >> $GITHUB_PATH
       shell: bash
 
-    - name: Create auth.toml file
+    - name: Create auth file
       run: |
         cat > $HOME/.rokit/auth.toml << EOF
         github = "${{ inputs.token }}"
