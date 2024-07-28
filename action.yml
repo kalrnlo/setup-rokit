@@ -27,13 +27,10 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
       run: |
-        os=${{ runner.os }}
-
-        echo os
         case ${{ runner.os }} in
-          Linux) pattern_start="*linux-x86_64.zip" ;;
-          macOS) pattern_start="*macos-x86_64.zip" ;;
-          Windows) pattern_start="*windows-x86_64.zip" ;;
+          Linux) pattern="*linux-x86_64.zip" ;;
+          macOS) pattern="*macos-x86_64.zip" ;;
+          Windows) pattern="*windows-x86_64.zip" ;;
         esac
         
         gh release download ${{ inputs.version }} --repo rojo-rbx/rokit --pattern $pattern
@@ -69,6 +66,20 @@ runs:
         rokit authenticate github --token ${{ inputs.token }} --skip-verify
       shell: bash
 
+    - name: Get Tool File
+      if: ${{ inputs.cache == true || inputs.cache == 'true' }}
+      id: file
+      run: |
+        if [ -f "aftman.toml" ]; then
+          echo "name=aftman.toml" >> $GITHUB_OUTPUT
+        elif [ -f "foreman.toml" ]; then
+          echo "name=foreman.toml" >> $GITHUB_OUTPUT
+        elif [ -f "rokit.toml" ]; then
+          echo "name=rokit.toml" >> $GITHUB_OUTPUT
+        else
+          echo "No tools file found"; exit 1
+        fi
+    
     - name: Cache binaries
       if: ${{ inputs.cache == true || inputs.cache == 'true' }}
       uses: actions/cache@v4
@@ -76,7 +87,7 @@ runs:
         path: |
           ~/.rokit/bin
           ~/.rokit/tool-storage
-        key: ${{ runner.os }}-rokit-${{hashFiles(format('{0}/{1}', inputs.path, 'rokit.toml'))}}
+        key: ${{ runner.os }}-rokit-${{hashFiles(format('{0}/{1}', inputs.path, ${{ steps.file.outputs.name }}))}}
 
     - name: Install tools
       run: |
