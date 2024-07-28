@@ -23,18 +23,17 @@ runs:
   using: "composite"
   steps:
     - name: Download rokit
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+      shell: bash
       run: |
         case ${{ runner.os }} in
           Linux) pattern="*linux-x86_64.zip" ;;
           macOS) pattern="*macos-x86_64.zip" ;;
           Windows) pattern="*windows-x86_64.zip" ;;
         esac
-
-        gh auth login --with-token GITHUB_TOKEN
+        
         gh release download ${{ inputs.version }} --repo rojo-rbx/rokit --pattern $pattern
-      env:
-        GITHUB_TOKEN: ${{ inputs.token }}
-      shell: bash
 
     - name: Install rokit
       run: |
@@ -63,7 +62,7 @@ runs:
       shell: bash
 
     - name: Create auth file
-      run: |
+      run: 
         cat > $HOME/.rokit/auth.toml << EOF
         github = "${{ inputs.token }}"
         EOF
