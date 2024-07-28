@@ -22,6 +22,20 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Get Tool File
+      if: ${{ inputs.cache == true || inputs.cache == 'true' }}
+      id: file
+      run: |
+        if [ -f "aftman.toml" ]; then
+          echo "name=aftman.toml" >> $GITHUB_OUTPUT
+        elif [ -f "foreman.toml" ]; then
+          echo "name=foreman.toml" >> $GITHUB_OUTPUT
+        elif [ -f "rokit.toml" ]; then
+          echo "name=rokit.toml" >> $GITHUB_OUTPUT
+        else
+          echo "No tools file found"; exit 1
+        fi
+  
     - name: Download rokit
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
@@ -65,20 +79,6 @@ runs:
       run: 
         rokit authenticate github --token ${{ inputs.token }} --skip-verify
       shell: bash
-
-    - name: Get Tool File
-      if: ${{ inputs.cache == true || inputs.cache == 'true' }}
-      id: file
-      run: |
-        if [ -f "aftman.toml" ]; then
-          echo "name=aftman.toml" >> $GITHUB_OUTPUT
-        elif [ -f "foreman.toml" ]; then
-          echo "name=foreman.toml" >> $GITHUB_OUTPUT
-        elif [ -f "rokit.toml" ]; then
-          echo "name=rokit.toml" >> $GITHUB_OUTPUT
-        else
-          echo "No tools file found"; exit 1
-        fi
     
     - name: Cache binaries
       if: ${{ inputs.cache == true || inputs.cache == 'true' }}
