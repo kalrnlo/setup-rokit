@@ -87,7 +87,7 @@ runs:
         path: |
           ~/.rokit/bin
           ~/.rokit/tool-storage
-        key: ${{ runner.os }}-rokit-${{hashFiles(format('{0}/{1}', inputs.path, ${{ steps.file.outputs.name }}))}}
+        key: ${{ runner.os }}-rokit-${{hashFiles(format('{0}/{1}', inputs.path, steps.file.outputs.name))}}
 
     - name: Install tools
       run: |
