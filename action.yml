@@ -61,11 +61,9 @@ runs:
       run: echo "$HOME/.rokit/bin" >> $GITHUB_PATH
       shell: bash
 
-    - name: Create auth file
+    - name: Authenticate
       run: 
-        cat > $HOME/.rokit/auth.toml << EOF
-        github = "${{ inputs.token }}"
-        EOF
+        rokit authenticate github --token ${{ inputs.token }}
       shell: bash
 
     - name: Cache binaries
