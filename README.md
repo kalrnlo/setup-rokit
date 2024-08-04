@@ -1,3 +1,5 @@
+use: https://github.com/CompeyDev/setup-rokit
+
 <div align="center">
   <h1><code>setup-rokit</code></h1>
   <p>
